@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class User {
+public class UserProfile {
     //    primary key
     @Id
     //autogenerate primarykey
@@ -78,10 +78,10 @@ public class User {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_follower", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "follower_id"))
-    private List<User> followers;
+    private List<UserProfile> followers;
 
     @ManyToMany(mappedBy = "followers")
-    private List<User> following;
+    private List<UserProfile> following;
 
 
 }

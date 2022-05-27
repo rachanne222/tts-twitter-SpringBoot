@@ -38,14 +38,18 @@ public class Tweet {
     @Column(name = "tweet_id")
     private Long id;
 
+    //denotes a foreign key
+    //FetchType.LAZY- mean it loads late - not that important
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id")
+    //Maintains referential integrity to cascade to all related to tables
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private User user;
+    private UserProfile userProfile;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = "tweet_tag", joinColumns = @JoinColumn(name = "tweet_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private List<Tag> tags;
+    //Intermediate table with join on
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+//    @JoinTable(name = "tweet_tag", joinColumns = @JoinColumn(name = "tweet_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+//    private List<Tag> tags;
 
     @NotEmpty(message = "Tweet cannot be empty")
     @Length(max = 280, message = "Tweet cannot have more than 280 characters")

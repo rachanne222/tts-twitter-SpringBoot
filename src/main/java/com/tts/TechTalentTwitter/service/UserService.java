@@ -1,7 +1,7 @@
 package com.tts.TechTalentTwitter.service;
 
 import com.tts.TechTalentTwitter.model.Role;
-import com.tts.TechTalentTwitter.model.User;
+import com.tts.TechTalentTwitter.model.UserProfile;
 import com.tts.TechTalentTwitter.respository.RoleRepository;
 import com.tts.TechTalentTwitter.respository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,25 +28,25 @@ public class UserService {
         this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-    public User findByUsername(String username) {
+    public UserProfile findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    public List<User> findAll(){
-        return (List<User>) userRepository.findAll();
+    public List<UserProfile> findAll(){
+        return (List<UserProfile>) userRepository.findAll();
     }
 
-    public void save(User user) {
-        userRepository.save(user);
+    public void save(UserProfile userProfile) {
+        userRepository.save(userProfile);
     }
-    public User saveNewUser(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setActive(1);
+    public UserProfile saveNewUser(UserProfile userProfile) {
+        userProfile.setPassword(bCryptPasswordEncoder.encode(userProfile.getPassword()));
+        userProfile.setActive(1);
         Role userRole = roleRepository.findByRole("USER");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-        return userRepository.save(user);
+        userProfile.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        return userRepository.save(userProfile);
     }
-    public User getLoggedInUser() {
+    public UserProfile getLoggedInUser() {
         String loggedInUsername = SecurityContextHolder.
                 getContext().getAuthentication().getName();
 

@@ -73,6 +73,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
     }
 
+    //What files can be accessed
+    //** means anything in the directory
     @Override
     public void configure(WebSecurity web) throws Exception {
         web

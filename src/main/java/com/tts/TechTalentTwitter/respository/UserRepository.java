@@ -1,5 +1,5 @@
 package com.tts.TechTalentTwitter.respository;
-import com.tts.TechTalentTwitter.model.User;
+import com.tts.TechTalentTwitter.model.UserProfile;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +13,7 @@ import java.util.List;
 //    2. The type of object that is the primary key
 
 @Repository  //Marks as a repository- not a critical as inheriting from repository
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends CrudRepository<UserProfile, Long> {
 
     //Inheriting from CRUD repositorty gives us lots o methods
     //  .save, .findbyId, ... etc
@@ -21,10 +21,10 @@ public interface UserRepository extends CrudRepository<User, Long> {
     //create method - name is parsed by SpringBoot and must conform to a pattern.
     //Springboot figures out how to turn it into a query.
 
-    User findByUsername(String username);
+    UserProfile findByUsername(String username);
 
     @Override
-    List<User> findAll();
+    List<UserProfile> findAll();
 }
 
 

@@ -2,12 +2,12 @@ package com.tts.TechTalentTwitter.service;
 
 import java.util.List;
 
+import com.tts.TechTalentTwitter.model.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tts.TechTalentTwitter.model.Tweet;
-import com.tts.TechTalentTwitter.model.User;
-import com.tts.TechTalentTwitter.repository.TweetRepository;
+import com.tts.TechTalentTwitter.respository.TweetRepository;
 
 @Service
 public class TweetService {
@@ -20,13 +20,13 @@ public class TweetService {
         return tweets;
     }
 
-    public List<Tweet> findAllByUser(User user) {
-        List<Tweet> tweets = tweetRepository.findAllByUserOrderByCreatedAtDesc(user);
+    public List<Tweet> findAllByUser(UserProfile userProfile) {
+        List<Tweet> tweets = tweetRepository.findAllByUserProfileOrderByCreatedAtDesc(userProfile);
         return tweets;
     }
 
-    public List<Tweet> findAllByUsers(List<User> users){
-        List<Tweet> tweets = tweetRepository.findAllByUserInOrderByCreatedAtDesc(users);
+    public List<Tweet> findAllByUsers(List<UserProfile> userProfiles){
+        List<Tweet> tweets = tweetRepository.findAllByUserProfileInOrderByCreatedAtDesc(userProfiles);
         return tweets;
     }
 

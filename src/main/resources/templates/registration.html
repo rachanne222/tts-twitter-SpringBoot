@@ -15,6 +15,8 @@
     <h2>Sign up</h2>
     <form th:action="@{/signup}" th:object="${user}" method="post" autocomplete="off" >
         <div class="form-group">
+<!--            //checks is there are errors and will report the binding result-->
+<!--            th:errors will fill in any error message for the called field-->
             <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="validation-message"></label>
             <input type="text" th:field="*{firstName}" placeholder="First Name" class="form-control"/>
         </div>
@@ -35,7 +37,11 @@
             <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="validation-message"></label>
         </div>
         <div class="form-group">
-            <button class="btn btn-md btn-success btn-block" name="Submit" value="Submit" type="Submit" th:text="Submit"></button>
+            <button class="btn btn-md btn-success btn-block"
+                    name="Submit"
+                    value="Submit"
+                    type="Submit"
+                    th:text="Submit"></button>
         </div>
     </form>
 </div>
