@@ -44,12 +44,9 @@ public class Tweet {
     @JoinColumn(name = "user_id")
     //Maintains referential integrity to cascade to all related to tables
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private UserProfile userProfile;
+    private UserProfile user;
 
-    //Intermediate table with join on
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-//    @JoinTable(name = "tweet_tag", joinColumns = @JoinColumn(name = "tweet_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
-//    private List<Tag> tags;
+
 
     @NotEmpty(message = "Tweet cannot be empty")
     @Length(max = 280, message = "Tweet cannot have more than 280 characters")
@@ -58,6 +55,13 @@ public class Tweet {
     @CreationTimestamp
     private Date createdAt;
 
+    //add list of tags for each tweet
+    //If a tweet is deleted from the hashtag it is deleted from the list of tweets for the hashtag
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    //"tweet_tag" table joins tweet table on tweet_id
+    @JoinTable(name = "tweet_tag", joinColumns = @JoinColumn(name = "tweet_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private List<Tag> tags;
 
 
 }

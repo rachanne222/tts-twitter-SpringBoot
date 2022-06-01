@@ -28,7 +28,7 @@ public class AuthorizationController {
         //sends new user with default values for filling out form
         UserProfile userProfile = new UserProfile();
         model.addAttribute("user", userProfile);
-        //return strings point to templates in Thymleaf
+        //return strings point to templates in Thymeleaf
         return "registration";
     }
 
@@ -48,6 +48,7 @@ public class AuthorizationController {
             //add attributes to the model
             model.addAttribute("success", "Sign up successful!");
             model.addAttribute("user", new UserProfile());
+
         }
         return "registration";
     }

@@ -2,16 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
-    <title>Log in</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-    <link rel="stylesheet" href="/custom.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="/custom.js"></script>
+    <title>Sign Up</title>
+    <th:block th:replace = "fragments/header">
+
+        </th:block>
 </head>
 <body>
 <div class="container">
+    <div th:replace="fragments/navbar"></div>
+<div class="container">
+    <div th:if="${success}">
+        <h3><span class="text-success" th:utext="${success}"></span></h3>
+        <button  sec:authorize="!isAuthenticated()"><a href="./login">Log In</a></button>
+    </div>
+    <div th:unless="${success}">
     <h2>Sign up</h2>
     <form th:action="@{/signup}" th:object="${user}" method="post" autocomplete="off" >
         <div class="form-group">
@@ -44,5 +48,6 @@
                     th:text="Submit"></button>
         </div>
     </form>
+    </div>
 </div>
 </body>

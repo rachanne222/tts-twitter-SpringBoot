@@ -5,24 +5,23 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
-    <title>Log in</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-    <link rel="stylesheet" href="/custom.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="/custom.js"></script>
+    <title>Tweet Feed</title>
+    <th:block th:replace = "fragments/header">
+
+        </th:block>
+
 </head>
+
 <body>
 <div class="container">
-    <h2>Tweet Feed</h2>
-    <!--    @specifies as a thymleaf url-->
-    <div
-            th:each="tweet: ${tweetList}" >
-        @<span th:text ="${tweet.user.username}"<></span>
-        <small><span th:text = '${#dates.format.dates(tweet)}'
+    <div th:replace="fragments/navbar"></div>
+    <ul class="nav nav-tabs">
+        <li role="presentation" th:classappend="${filter == 'all' ? 'active' : '' }">
+            <a href="/tweets">All</a></li>
+        <li role="presentation" th:classappend="${filter == 'following' ? 'active' : '' }">
+            <a href="/tweets?filter=following">Following</a></li>
+    </ul><br/>
+    <div th:replace="fragments/tweetListHeader"></div>
+    <div th:replace="fragments/tweetList"></div>
 
-
-    </div>
-</div>
 </body>
