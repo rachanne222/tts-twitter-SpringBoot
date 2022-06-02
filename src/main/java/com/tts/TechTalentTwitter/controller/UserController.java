@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,10 +28,9 @@ public class UserController {
     @GetMapping(value = "/users/{username}")
     public String getUser(@PathVariable(value="username") String username, Model model) {
         //all tweets created by a user
-        UserProfile loggedInUser= userService.getLoggedInUser();
         UserProfile user = userService.findByUsername(username);
         List<TweetDisplay> tweets = tweetService.findAllByUser(user);
-
+        UserProfile loggedInUser= userService.getLoggedInUser();
         List<UserProfile> following= loggedInUser.getFollowing();
         boolean isFollowing=false;
         for (UserProfile followedUser : following) {
@@ -47,13 +48,31 @@ public class UserController {
 
 
     @GetMapping(value = "/users")
-    public String getUsers(Model model) {
+    public String getUsers(@RequestParam(value = "filter", required = false) String filter, Model model) {
+        List<UserProfile> users = new ArrayList<UserProfile>();
+
         UserProfile loggedInUser = userService.getLoggedInUser();
+
         List<UserProfile> usersFollowing = loggedInUser.getFollowing();
-        List<UserProfile> users = userService.findAll();
-        SetFollowingStatus(users, usersFollowing, model);
+        List<UserProfile> usersFollowers = loggedInUser.getFollowers();
+        if (filter == null) {
+            filter = "all";
+        }
+        if (filter.equalsIgnoreCase("followers")) {
+            users = usersFollowers;
+            model.addAttribute("filter", "followers");
+        } else if (filter.equalsIgnoreCase("following")) {
+            users = usersFollowing;
+            model.addAttribute("filter", "following");
+        } else {
+            users = userService.findAll();
+            model.addAttribute("filter", "all");
+        }
         model.addAttribute("users", users);
+
         SetTweetCounts(users, model);
+        SetFollowingStatus(users, usersFollowing, model);
+
         return "users";
     }
 
@@ -72,6 +91,14 @@ public class UserController {
     private void SetFollowingStatus(List<UserProfile> users, List<UserProfile> usersFollowing, Model model) {
         HashMap<String, Boolean> followingStatus = new HashMap<>();
         String username = userService.getLoggedInUser().getUsername();
+        for (UserProfile user : users) {
+            if(usersFollowing.contains(user)) {
+                followingStatus.put(user.getUsername(), true);
+            }else if (!user.getUsername().equals(username)) {
+                followingStatus.put(user.getUsername(), false);
+            }
+        }
+        model.addAttribute("followingStatus", followingStatus);
     }
 
 

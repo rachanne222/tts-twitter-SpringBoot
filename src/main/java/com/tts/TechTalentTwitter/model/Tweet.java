@@ -57,9 +57,11 @@ public class Tweet {
 
     //add list of tags for each tweet
     //If a tweet is deleted from the hashtag it is deleted from the list of tweets for the hashtag
-    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(fetch = FetchType.LAZY, cascade =
+            { CascadeType.PERSIST, CascadeType.MERGE })
     //"tweet_tag" table joins tweet table on tweet_id
-    @JoinTable(name = "tweet_tag", joinColumns = @JoinColumn(name = "tweet_id"),
+    @JoinTable(name = "tweet_tag",
+            joinColumns = @JoinColumn(name = "tweet_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags;
 

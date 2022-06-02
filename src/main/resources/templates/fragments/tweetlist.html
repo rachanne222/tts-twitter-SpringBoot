@@ -4,7 +4,7 @@
         <h5 class="list-group-item list-group-item-action">@<span
                 th:text="${tweet.user.username}"></span>
             <br><br/>
-<!--            <small><span class ="list-group-item th:text="${#dates.format(tweet.createdAt, 'M/d/yy')}"></span></small>&ndash;&gt;-->
+                  <small th:text="${tweet.date}"></small>
             <p th:utext="${tweet.message}"></p>
         </h5>
     </div>

@@ -33,7 +33,7 @@
                     <h5 class="mb-1">
                         <span th:text="${user.firstName}"></span>
                         <span th:text="${user.lastName}"></span>
-                        <span th:if="${!followingStatus.containsKey(user.username)}">(Me)</span>
+                        <span th:if="${!followingStatus.containsKey(user.username)}"></span>
                     </h5>
                 </div>
                 <div class="col col-sm-2 col-sm-offset-4 text-right">
