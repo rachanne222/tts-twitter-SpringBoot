@@ -57,12 +57,19 @@ public class Tweet {
 
     //add list of tags for each tweet
     //If a tweet is deleted from the hashtag it is deleted from the list of tweets for the hashtag
+    //"fetch = FetchType.LAZY" is telling JPA when to fill out the "List<Tag> tags in the Tweet.
+    //It controls what happens when data is deleted from say Tweets or Tags
+    //does our JoinTable get updated auotomatically? or does it keep the information...
     @ManyToMany(fetch = FetchType.LAZY, cascade =
             { CascadeType.PERSIST, CascadeType.MERGE })
+
     //"tweet_tag" table joins tweet table on tweet_id
+    //@JoinTable is just giving names to the table and the columns so they aren't random
     @JoinTable(name = "tweet_tag",
             joinColumns = @JoinColumn(name = "tweet_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    //Tells SpringBoot we are storing tags
+    //and it would have that table store the primary key of Tag (the item that is being stored in the collection)
     private List<Tag> tags;
 
 

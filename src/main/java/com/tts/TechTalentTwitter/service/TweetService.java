@@ -42,12 +42,15 @@ public class TweetService {
     }
 
     public void save(Tweet tweet) {
+        handleTags(tweet);
         tweetRepository.save(tweet);
+
     }
 
 
+
     //scan tweet for tags before we save it and add them
-    private void handleTags(Tweet tweet) {
+    public  void handleTags(Tweet tweet) {
         List<Tag> tags = new ArrayList<Tag>();
         Pattern pattern = Pattern.compile("#\\w+");
         Matcher matcher = pattern.matcher(tweet.getMessage());
@@ -88,6 +91,7 @@ public class TweetService {
             }
             //replace the message with a link to the tweets with the hashtag
             for (String tag : tags) {
+
                 message = message.replaceAll(tag,
                         "<a class=\"tag\" href=\"/tweets/" + tag.substring(1).toLowerCase() + "\">" + tag + "</a>");
             }

@@ -1,6 +1,7 @@
 <body>
 <div class="container">
     <div class="list-group" th:each="tweet:${tweetList}">
+        <a th:href="@{/users/} + ${tweet.user.username}">
         <h5 class="list-group-item list-group-item-action">@<span
                 th:text="${tweet.user.username}"></span>
             <br><br/>

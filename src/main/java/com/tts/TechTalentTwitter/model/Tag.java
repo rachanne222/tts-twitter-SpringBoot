@@ -31,6 +31,7 @@ public class Tag {
     private String phrase;
 
     //map by tags to tweets with these tags
+    ///mappedBy  indicates an inverse relationship
     @ManyToMany(mappedBy = "tags")
     private List<Tweet> tweets;
 }

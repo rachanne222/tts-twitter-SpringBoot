@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class TweetDisplay {
     private UserProfile user;
     private String message;
-    private String date;
+    public String date;
     private List<Tag> tags;
 
 
