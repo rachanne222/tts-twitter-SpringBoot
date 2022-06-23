@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+#Make sure environment variable do not get checked into source control
+.env

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--TO SUPPORT THYMLEAF ENABLEMENT FOR THE PROJECT-->
+<!--TO SUPPORT THYMLEAF ENABLEMENT FOR THE EXTRAS SPRING SECURITY-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <title>Log in</title>
+    <th:block th:replace = "fragments/header">
+
+    </th:block>
+
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/navbar"></div>
+<div class="container">
+    <h2>Welcome!</h2>
+<!--    @specifies as a thymleaf url-->
+    <form th:action="@{/login}" method="post"><br/>
+        <input type="text" id="username" name="username" th:placeholder="Username" class="form-control"/> <br/>
+<!--        type password will not show any text-->
+        <input type="password" th:placeholder="Password" id="password" name="password" class="form-control"/> <br/>
+        <div align="center" th:if="${param.error}">
+            <h4 style="color: #ff0000">Login unsuccessful.</h4>
+        </div>
+        <button class="btn btn-md btn-success btn-block" name="Submit" value="Login" type="Submit">Log in</button>
+    </form>
+    <br/>
+    <button  sec:authorize="!isAuthenticated()"><a href="./signup">Sign Up</a></button>
+
+</div>
+</body>
